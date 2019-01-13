@@ -17,6 +17,17 @@ import kotlinx.android.synthetic.main.fragment_main.*
  */
 class MainActivityFragment : Fragment() {
 
+    companion object {
+
+        fun newInstance() : MainActivityFragment {
+
+            val mainActivityFragment = MainActivityFragment()
+            return mainActivityFragment
+
+        }
+
+    }
+
     lateinit var viewModel: RandomCatViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -8,8 +8,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    val mainActivityFragment = MainActivityFragment()
-
     private val viewModel : RandomCatViewModel by lazy {
         ViewModelProviders.of(this).get(RandomCatViewModel::class.java)
     }
@@ -20,7 +18,7 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         val fragmentTransaction = supportFragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.frame_layout,mainActivityFragment)
+        fragmentTransaction.replace(R.id.frame_layout,MainActivityFragment.newInstance())
         fragmentTransaction.commit()
 
         fab.setOnClickListener { view ->
