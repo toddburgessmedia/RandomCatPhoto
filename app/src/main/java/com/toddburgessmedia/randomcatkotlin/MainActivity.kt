@@ -21,6 +21,8 @@ class MainActivity : AppCompatActivity() {
         fragmentTransaction.replace(R.id.frame_layout,MainActivityFragment.newInstance())
         fragmentTransaction.commit()
 
+        viewModel.loadCatPhotos()
+
         fab.setOnClickListener { view ->
             viewModel.loadCatPhotos()
         }
