@@ -3,6 +3,7 @@ package com.toddburgessmedia.randomcatkotlin
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity;
+import com.toddburgessmedia.randomcatkotlin.model.CatPhotoDB
 
 import kotlinx.android.synthetic.main.activity_main.*
 
