@@ -46,10 +46,9 @@ class MainActivityFragment : Fragment() {
             ViewModelProviders.of(this).get(RandomCatViewModel::class.java)
         } ?: throw Exception ("wrong activity")
 
-        viewModel.changeNotifier.observe(this, Observer<String> { it ->
+        viewModel.changeNotifier.observe(this, Observer<String> {
             Picasso.get().load(it).into(cat_photo)
-        }
-        )
+        })
 
         viewModel.startModelView()
     }
