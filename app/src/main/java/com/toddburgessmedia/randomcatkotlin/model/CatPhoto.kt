@@ -9,5 +9,5 @@ data class CatPhoto (
     @PrimaryKey(autoGenerate = true)
     var id : Int? = null,
 
-    var file : String? = null
+    var file : String
 )

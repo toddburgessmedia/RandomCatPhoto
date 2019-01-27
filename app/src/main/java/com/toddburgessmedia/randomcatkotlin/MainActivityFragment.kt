@@ -1,8 +1,10 @@
 package com.toddburgessmedia.randomcatkotlin
 
+import android.app.Activity
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Context
 import android.support.v4.app.Fragment
 import android.os.Bundle
 import android.util.Log
@@ -17,32 +19,17 @@ import kotlinx.android.synthetic.main.fragment_main.*
  */
 class MainActivityFragment : Fragment() {
 
+    lateinit var viewModel: RandomCatViewModel
+
     companion object {
 
         fun newInstance() : MainActivityFragment {
 
             val mainActivityFragment = MainActivityFragment()
             return mainActivityFragment
-
         }
 
     }
-
-    lateinit var viewModel: RandomCatViewModel
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        viewModel = activity?.run {
-            ViewModelProviders.of(this).get(RandomCatViewModel::class.java)
-        } ?: throw Exception ("wrong activity")
-
-        viewModel.changeNotifier.observe(this, Observer<String> { it ->
-                Picasso.get().load(it).into(cat_photo)
-            }
-        )
-    }
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,5 +39,20 @@ class MainActivityFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_main, container, false)
 
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        viewModel = activity?.run {
+            ViewModelProviders.of(this).get(RandomCatViewModel::class.java)
+        } ?: throw Exception ("wrong activity")
+
+        viewModel.changeNotifier.observe(this, Observer<String> { it ->
+            Picasso.get().load(it).into(cat_photo)
+        }
+        )
+
+        viewModel.startModelView()
+    }
+
 
 }
