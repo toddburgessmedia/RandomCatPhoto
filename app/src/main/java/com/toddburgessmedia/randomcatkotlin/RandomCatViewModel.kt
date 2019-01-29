@@ -56,16 +56,14 @@ class RandomCatViewModel(application: Application) : AndroidViewModel(applicatio
 
         val photoFactory = CatPhotoFactory.makeRetrofitService()
 
-        GlobalScope.launch(Dispatchers.Main) {
+        GlobalScope.launch(Dispatchers.IO) {
             val request = photoFactory.getPhoto().await()
             val response = request
             fileName = response.body()?.file
-            changeNotifier.value = fileName
+            changeNotifier.postValue(fileName)
 
-            GlobalScope.launch(Dispatchers.IO) {
-                val catPhoto = CatPhoto(file = fileName!!)
-                catPhotoDAO?.insertCatPhoto(catPhoto)
-            }
+            val catPhoto = CatPhoto(file = fileName!!)
+            catPhotoDAO?.insertCatPhoto(catPhoto)
         }
     }
 }
