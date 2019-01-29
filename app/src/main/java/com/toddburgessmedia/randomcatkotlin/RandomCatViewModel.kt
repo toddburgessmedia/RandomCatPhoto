@@ -33,9 +33,7 @@ class RandomCatViewModel(application: Application) : AndroidViewModel(applicatio
 
         GlobalScope.launch(Dispatchers.IO) {
             val catPhotos = catPhotoDAO?.getAllCatPhotos()
-            withContext(Dispatchers.Main) {
-                    dbChangeNotifier.value = catPhotos
-            }
+            dbChangeNotifier.postValue(catPhotos)
         }
 
     }
@@ -46,16 +44,10 @@ class RandomCatViewModel(application: Application) : AndroidViewModel(applicatio
             val catPhoto = catPhotoDAO?.getCatPhoto()
             if (catPhoto?.file != null) {
                 with(catPhoto) {
-                    withContext(Dispatchers.Main) {
-                        changeNotifier.value = file
-                    }
+                    changeNotifier.postValue(file)
                 }
             } else {
                 loadCatPhotos()
-            }
-            val photos = catPhotoDAO?.getAllCatPhotos()
-            photos?.forEach {
-                Log.d("CATPHOTO", "photo: ${it.file}")
             }
         }
     }

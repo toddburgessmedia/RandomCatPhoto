@@ -10,7 +10,7 @@ import com.toddburgessmedia.randomcatkotlin.model.CatPhoto
 import kotlinx.android.synthetic.main.rv_allphoto.view.*
 
 class AllPhotosAdapter (val items : List<CatPhoto>?,
-                        val context: Context)
+                        val context: Context?)
                         : RecyclerView.Adapter<AllPhotosAdapter.PhotoViewHolder>() {
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, p1: Int): PhotoViewHolder {

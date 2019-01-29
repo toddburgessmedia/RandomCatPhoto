@@ -51,7 +51,7 @@ class AllPhotosFragment : Fragment() {
         allphotos.layoutManager = LinearLayoutManager(activity)
         viewModel.dbChangeNotifier.observe(this, Observer<List<CatPhoto>> {
 
-                adapter = AllPhotosAdapter(it, context!!)
+                adapter = AllPhotosAdapter(it, context)
                 allphotos.adapter = adapter
         })
 
