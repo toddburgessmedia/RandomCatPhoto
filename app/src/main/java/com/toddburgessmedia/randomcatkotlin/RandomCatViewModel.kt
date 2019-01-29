@@ -14,6 +14,8 @@ class RandomCatViewModel(application: Application) : AndroidViewModel(applicatio
     var fileName : String? = ""
     var changeNotifier : MutableLiveData<String> = MutableLiveData()
 
+    var dbChangeNotifier = MutableLiveData<List<CatPhoto>>()
+
     var appDB : CatPhotoDB? = null
     var catPhotoDAO : CatPhotoDAO? = null
 
@@ -27,9 +29,18 @@ class RandomCatViewModel(application: Application) : AndroidViewModel(applicatio
         return changeNotifier
     }
 
-    fun startModelView() {
+    fun getAllCatPhotos() {
 
-        runBlocking<Unit> {  }
+        GlobalScope.launch(Dispatchers.IO) {
+            val catPhotos = catPhotoDAO?.getAllCatPhotos()
+            withContext(Dispatchers.Main) {
+                    dbChangeNotifier.value = catPhotos
+            }
+        }
+
+    }
+
+    fun startModelView() {
 
         GlobalScope.launch(Dispatchers.IO) {
             val catPhoto = catPhotoDAO?.getCatPhoto()
@@ -41,6 +52,10 @@ class RandomCatViewModel(application: Application) : AndroidViewModel(applicatio
                 }
             } else {
                 loadCatPhotos()
+            }
+            val photos = catPhotoDAO?.getAllCatPhotos()
+            photos?.forEach {
+                Log.d("CATPHOTO", "photo: ${it.file}")
             }
         }
     }

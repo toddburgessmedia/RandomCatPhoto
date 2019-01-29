@@ -14,4 +14,6 @@ interface CatPhotoDAO {
     @Query("SELECT * FROM CatPhoto ORDER BY id DESC LIMIT 1")
     fun getCatPhoto() : CatPhoto
 
+    @Query("SELECT * FROM CatPhoto ORDER BY id")
+    fun getAllCatPhotos() : List<CatPhoto>
 }

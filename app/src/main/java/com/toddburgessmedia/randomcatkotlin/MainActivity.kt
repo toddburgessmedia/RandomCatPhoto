@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         val fragmentTransaction = supportFragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.frame_layout,MainActivityFragment.newInstance())
+        fragmentTransaction.replace(R.id.frame_layout,AllPhotosFragment.newInstance())
         fragmentTransaction.commit()
 
         fab.setOnClickListener {
