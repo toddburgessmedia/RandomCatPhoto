@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -51,8 +52,14 @@ class AllPhotosFragment : Fragment() {
         allphotos.layoutManager = LinearLayoutManager(activity)
         viewModel.dbChangeNotifier.observe(this, Observer<List<CatPhoto>> {
 
-                adapter = AllPhotosAdapter(it, context)
+                adapter = AllPhotosAdapter(it?.toMutableList(), context)
                 allphotos.adapter = adapter
+        })
+
+        viewModel.catPhotoDAO?.getLiveAllCatPhotos()?.observe(this, Observer<List<CatPhoto>> {
+
+            Log.d("CATPHOTO", "db changed")
+            adapter.addPhoto(it!!)
         })
 
         viewModel.getAllCatPhotos()

@@ -9,7 +9,7 @@ import com.squareup.picasso.Picasso
 import com.toddburgessmedia.randomcatkotlin.model.CatPhoto
 import kotlinx.android.synthetic.main.rv_allphoto.view.*
 
-class AllPhotosAdapter (val items : List<CatPhoto>?,
+class AllPhotosAdapter (val items : MutableList<CatPhoto>?,
                         val context: Context?)
                         : RecyclerView.Adapter<AllPhotosAdapter.PhotoViewHolder>() {
 
@@ -19,6 +19,13 @@ class AllPhotosAdapter (val items : List<CatPhoto>?,
 
     override fun getItemCount(): Int {
         return items?.size!!
+    }
+
+    fun addPhoto(new : List<CatPhoto>) {
+        if (items?.last() != new.last()) {
+            items?.add(new.last())
+            notifyDataSetChanged()
+        }
     }
 
     override fun onBindViewHolder(holder: AllPhotosAdapter.PhotoViewHolder, p1: Int) {
