@@ -14,7 +14,7 @@ abstract class CatPhotoDB : RoomDatabase() {
         private var INSTANCE : CatPhotoDB? = null
 
         fun getAppDatabase (context : Context) : CatPhotoDB {
-            if (INSTANCE == null) {
+            INSTANCE?.let {
                 synchronized(CatPhotoDB::class) {
                     INSTANCE = Room.databaseBuilder(context.applicationContext,
                         CatPhotoDB::class.java, "myDB").fallbackToDestructiveMigration().build()

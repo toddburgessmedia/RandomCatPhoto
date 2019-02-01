@@ -16,8 +16,8 @@ class RandomCatViewModel(application: Application) : AndroidViewModel(applicatio
 
     var dbChangeNotifier = MutableLiveData<List<CatPhoto>>()
 
-    lateinit var appDB : CatPhotoDB
-    lateinit var catPhotoDAO : CatPhotoDAO
+    var appDB : CatPhotoDB
+    var catPhotoDAO : CatPhotoDAO
 
     init {
         appDB = CatPhotoDB.getAppDatabase(application.baseContext)
