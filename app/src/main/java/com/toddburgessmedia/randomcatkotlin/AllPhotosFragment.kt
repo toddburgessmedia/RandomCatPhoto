@@ -56,10 +56,12 @@ class AllPhotosFragment : Fragment() {
                 allphotos.adapter = adapter
         })
 
-        viewModel.catPhotoDAO?.getLiveAllCatPhotos()?.observe(this, Observer<List<CatPhoto>> {
+        viewModel.catPhotoDAO.getLiveAllCatPhotos().observe(this, Observer<List<CatPhoto>> {
 
             Log.d("CATPHOTO", "db changed")
-            adapter.addPhoto(it!!)
+            it?.let {
+                adapter.addPhoto(it)
+            }
         })
 
         viewModel.getAllCatPhotos()

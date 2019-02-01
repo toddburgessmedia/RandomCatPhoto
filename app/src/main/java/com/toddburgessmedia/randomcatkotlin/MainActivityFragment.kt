@@ -47,7 +47,9 @@ class MainActivityFragment : Fragment() {
         } ?: throw Exception ("wrong activity")
 
         viewModel.changeNotifier.observe(this, Observer<String> {
-            Picasso.get().load(it).into(cat_photo)
+            it?.let {
+                Picasso.get().load(it).into(cat_photo)
+            }
         })
 
         viewModel.startModelView()

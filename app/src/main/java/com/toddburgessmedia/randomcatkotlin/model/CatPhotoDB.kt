@@ -13,14 +13,14 @@ abstract class CatPhotoDB : RoomDatabase() {
     companion object {
         private var INSTANCE : CatPhotoDB? = null
 
-        fun getAppDatabase (context : Context) : CatPhotoDB? {
+        fun getAppDatabase (context : Context) : CatPhotoDB {
             if (INSTANCE == null) {
                 synchronized(CatPhotoDB::class) {
                     INSTANCE = Room.databaseBuilder(context.applicationContext,
                         CatPhotoDB::class.java, "myDB").fallbackToDestructiveMigration().build()
                 }
             }
-            return INSTANCE
+            return INSTANCE ?: throw Exception("Unable to create db")
         }
 
         fun destroyDatabase() {

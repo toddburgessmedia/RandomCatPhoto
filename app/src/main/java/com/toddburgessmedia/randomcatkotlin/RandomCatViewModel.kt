@@ -16,12 +16,12 @@ class RandomCatViewModel(application: Application) : AndroidViewModel(applicatio
 
     var dbChangeNotifier = MutableLiveData<List<CatPhoto>>()
 
-    var appDB : CatPhotoDB? = null
-    var catPhotoDAO : CatPhotoDAO? = null
+    lateinit var appDB : CatPhotoDB
+    lateinit var catPhotoDAO : CatPhotoDAO
 
     init {
         appDB = CatPhotoDB.getAppDatabase(application.baseContext)
-        catPhotoDAO = appDB?.catPhotoDao()
+        catPhotoDAO = appDB.catPhotoDao()
     }
 
     fun getCatPhoto() : MutableLiveData<String> {
@@ -32,7 +32,7 @@ class RandomCatViewModel(application: Application) : AndroidViewModel(applicatio
     fun getAllCatPhotos() {
 
         GlobalScope.launch(Dispatchers.IO) {
-            val catPhotos = catPhotoDAO?.getAllCatPhotos()
+            val catPhotos = catPhotoDAO.getAllCatPhotos()
             dbChangeNotifier.postValue(catPhotos)
         }
 
@@ -41,7 +41,7 @@ class RandomCatViewModel(application: Application) : AndroidViewModel(applicatio
     fun startModelView() {
 
         GlobalScope.launch(Dispatchers.IO) {
-            val catPhoto = catPhotoDAO?.getCatPhoto()
+            val catPhoto = catPhotoDAO.getCatPhoto()
             if (catPhoto?.file != null) {
                 with(catPhoto) {
                     changeNotifier.postValue(file)
@@ -60,10 +60,11 @@ class RandomCatViewModel(application: Application) : AndroidViewModel(applicatio
             val request = photoFactory.getPhoto().await()
             val response = request
             fileName = response.body()?.file
-            changeNotifier.postValue(fileName)
-
-            val catPhoto = CatPhoto(file = fileName!!)
-            catPhotoDAO?.insertCatPhoto(catPhoto)
+            fileName?.let {
+                changeNotifier.postValue(it)
+                val catPhoto = CatPhoto(file = it)
+                catPhotoDAO.insertCatPhoto(catPhoto)
+            }
         }
     }
 }
