@@ -8,8 +8,9 @@ import android.content.Context
 import android.util.Log
 import com.toddburgessmedia.randomcatkotlin.model.*
 import kotlinx.coroutines.*
+import kotlin.coroutines.CoroutineContext
 
-class RandomCatViewModel(application: Application) : AndroidViewModel(application)  {
+class RandomCatViewModel(application: Application) : AndroidViewModel(application), CoroutineScope  {
 
     var fileName : String? = ""
     var changeNotifier : MutableLiveData<String> = MutableLiveData()
@@ -24,6 +25,9 @@ class RandomCatViewModel(application: Application) : AndroidViewModel(applicatio
         catPhotoDAO = appDB.catPhotoDao()
     }
 
+    override val coroutineContext: CoroutineContext
+        get() = Dispatchers.IO
+
     fun getCatPhoto() : MutableLiveData<String> {
 
         return changeNotifier
@@ -31,7 +35,7 @@ class RandomCatViewModel(application: Application) : AndroidViewModel(applicatio
 
     fun getAllCatPhotos() {
 
-        GlobalScope.launch(Dispatchers.IO) {
+        this.launch {
             val catPhotos = catPhotoDAO.getAllCatPhotos()
             dbChangeNotifier.postValue(catPhotos)
         }
@@ -40,7 +44,7 @@ class RandomCatViewModel(application: Application) : AndroidViewModel(applicatio
 
     fun startModelView() {
 
-        GlobalScope.launch(Dispatchers.IO) {
+        this.launch {
             val catPhoto = catPhotoDAO.getCatPhoto()
             if (catPhoto?.file != null) {
                 with(catPhoto) {
@@ -56,7 +60,7 @@ class RandomCatViewModel(application: Application) : AndroidViewModel(applicatio
 
         val photoFactory = CatPhotoFactory.makeRetrofitService()
 
-        GlobalScope.launch(Dispatchers.IO) {
+        this.launch {
             val request = photoFactory.getPhoto().await()
             val response = request
             fileName = response.body()?.file
