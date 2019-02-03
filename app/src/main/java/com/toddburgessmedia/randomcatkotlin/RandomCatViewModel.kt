@@ -3,9 +3,6 @@ package com.toddburgessmedia.randomcatkotlin
 import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.ViewModel
-import android.content.Context
-import android.util.Log
 import com.toddburgessmedia.randomcatkotlin.model.*
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
@@ -26,11 +23,12 @@ class RandomCatViewModel(application: Application) : AndroidViewModel(applicatio
     }
 
     override val coroutineContext: CoroutineContext
-        get() = Dispatchers.IO
+        get() = Dispatchers.IO + SupervisorJob()
 
-    fun getCatPhoto() : MutableLiveData<String> {
+    override fun onCleared() {
+        super.onCleared()
 
-        return changeNotifier
+        coroutineContext.cancelChildren()
     }
 
     fun getAllCatPhotos() {
