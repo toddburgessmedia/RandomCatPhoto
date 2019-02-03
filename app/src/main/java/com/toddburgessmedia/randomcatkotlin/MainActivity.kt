@@ -7,12 +7,11 @@ import com.toddburgessmedia.randomcatkotlin.model.CatPhotoDB
 
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
 
-    private val viewModel : RandomCatViewModel by lazy {
-        ViewModelProviders.of(this).get(RandomCatViewModel::class.java)
-    }
+    private val viewModel : RandomCatViewModel by viewModel<RandomCatViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

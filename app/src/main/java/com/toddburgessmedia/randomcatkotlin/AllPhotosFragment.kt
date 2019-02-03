@@ -1,28 +1,21 @@
 package com.toddburgessmedia.randomcatkotlin
 
 import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.squareup.picasso.Picasso
 import com.toddburgessmedia.randomcatkotlin.model.CatPhoto
-import kotlinx.android.synthetic.main.content_main.*
 import kotlinx.android.synthetic.main.fragment_allphotos.*
-import kotlinx.android.synthetic.main.fragment_main.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 class AllPhotosFragment : Fragment() {
 
-    lateinit var viewModel: RandomCatViewModel
-    lateinit var adapter: AllPhotosAdapter
+    private val viewModel: RandomCatViewModel by sharedViewModel<RandomCatViewModel>()
+
+    var adapter: AllPhotosAdapter? = null
 
     companion object {
 
@@ -45,22 +38,20 @@ class AllPhotosFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        viewModel = activity?.run {
-            ViewModelProviders.of(this).get(RandomCatViewModel::class.java)
-        } ?: throw Exception ("wrong activity")
-
         allphotos.layoutManager = LinearLayoutManager(activity)
-        viewModel.dbChangeNotifier.observe(this, Observer<List<CatPhoto>> {
+        viewModel.dbChangeNotifier.observe(this, Observer<List<CatPhoto>> { list ->
 
-                adapter = AllPhotosAdapter(it!!.toMutableList(), context)
-                allphotos.adapter = adapter
+                list?.let {
+                    adapter = AllPhotosAdapter(it.toMutableList(), context)
+                    allphotos.adapter = adapter
+                }
         })
 
-        viewModel.catPhotoDAO.getLiveAllCatPhotos().observe(this, Observer<List<CatPhoto>> {
+        viewModel.catPhotoDAO.getLiveAllCatPhotos().observe(this,
+                                Observer<List<CatPhoto>> { list ->
 
-            Log.d("CATPHOTO", "db changed")
-            it?.let {
-                adapter.addPhoto(it)
+            list?.let {
+                adapter?.addPhoto(it)
             }
         })
 
