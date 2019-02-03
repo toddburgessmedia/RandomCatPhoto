@@ -27,7 +27,7 @@ class AllPhotosAdapter (val items : MutableList<CatPhoto>,
     }
 
     override fun onBindViewHolder(holder: AllPhotosAdapter.PhotoViewHolder, p1: Int) {
-        Picasso.get().load(items.get(p1).file).into(holder.photo)
+        Picasso.get().load(items[p1].file).into(holder.photo)
 
     }
 
