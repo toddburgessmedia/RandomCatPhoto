@@ -13,13 +13,11 @@ class AllPhotosAdapter (val items : MutableList<CatPhoto>,
                         val context: Context?)
                         : RecyclerView.Adapter<AllPhotosAdapter.PhotoViewHolder>() {
 
-    override fun onCreateViewHolder(viewGroup: ViewGroup, p1: Int): PhotoViewHolder {
-        return PhotoViewHolder(LayoutInflater.from(context).inflate(R.layout.rv_allphoto, viewGroup, false))
-    }
+    override fun onCreateViewHolder(viewGroup: ViewGroup, p1: Int): PhotoViewHolder =
+        PhotoViewHolder(LayoutInflater.from(context).inflate(R.layout.rv_allphoto, viewGroup, false))
 
-    override fun getItemCount(): Int {
-        return items.size
-    }
+
+    override fun getItemCount(): Int = items.size
 
     fun addPhoto(new : List<CatPhoto>) {
         if (items.last() != new.last()) {
