@@ -33,7 +33,7 @@ class RandomCatViewModel(application: Application) : AndroidViewModel(applicatio
 
     fun getAllCatPhotos() {
 
-        this.launch {
+        launch {
             val catPhotos = catPhotoDAO.getAllCatPhotos()
             dbChangeNotifier.postValue(catPhotos)
         }
@@ -42,7 +42,7 @@ class RandomCatViewModel(application: Application) : AndroidViewModel(applicatio
 
     fun startModelView() {
 
-        this.launch {
+        launch {
             val catPhoto = catPhotoDAO.getCatPhoto()
             if (catPhoto?.file != null) {
                 with(catPhoto) {
@@ -58,7 +58,7 @@ class RandomCatViewModel(application: Application) : AndroidViewModel(applicatio
 
         val photoFactory = CatPhotoFactory.makeRetrofitService()
 
-        this.launch {
+        launch {
             val request = photoFactory.getPhoto().await()
             val response = request
             fileName = response.body()?.file
