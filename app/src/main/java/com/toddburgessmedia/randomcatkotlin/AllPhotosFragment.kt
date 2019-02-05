@@ -5,13 +5,11 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.toddburgessmedia.randomcatkotlin.model.CatPhoto
 import kotlinx.android.synthetic.main.fragment_allphotos.*
-import kotlinx.android.synthetic.main.fragment_main.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 class AllPhotosFragment : Fragment() {
@@ -50,6 +48,8 @@ class AllPhotosFragment : Fragment() {
                     allphotos.adapter = adapter
                     allphotos.addItemDecoration(DividerItemDecoration(context,
                                                 DividerItemDecoration.VERTICAL))
+
+
                 }
         })
 
@@ -67,6 +67,7 @@ class AllPhotosFragment : Fragment() {
     private fun itemClicked (catPhoto: CatPhoto) {
 
         viewModel.deletePhoto(catPhoto)
+        adapter?.notifyItemChanged(catPhoto.id!!)
     }
 
 }

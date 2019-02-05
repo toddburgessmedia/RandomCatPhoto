@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import com.squareup.picasso.Picasso
 import com.toddburgessmedia.randomcatkotlin.model.CatPhoto
 import kotlinx.android.synthetic.main.rv_allphoto.view.*
@@ -20,11 +21,9 @@ class AllPhotosAdapter (val items : MutableList<CatPhoto>,
     override fun getItemCount(): Int = items.size
 
     fun addPhoto(new : List<CatPhoto>) {
-//        if (items.last() != new.last()) {
             items.clear()
             items.addAll(new)
             notifyDataSetChanged()
-//        }
     }
 
     override fun onBindViewHolder(holder: AllPhotosAdapter.PhotoViewHolder, p1: Int) {
@@ -33,6 +32,8 @@ class AllPhotosAdapter (val items : MutableList<CatPhoto>,
 
 
     }
+
+
 
     class PhotoViewHolder (val v : View) : RecyclerView.ViewHolder(v) {
 
