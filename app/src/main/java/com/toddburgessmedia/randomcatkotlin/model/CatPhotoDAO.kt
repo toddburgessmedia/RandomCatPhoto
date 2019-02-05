@@ -1,10 +1,8 @@
 package com.toddburgessmedia.randomcatkotlin.model
 
 import android.arch.lifecycle.LiveData
-import android.arch.persistence.room.Dao
-import android.arch.persistence.room.Insert
-import android.arch.persistence.room.OnConflictStrategy
-import android.arch.persistence.room.Query
+import android.arch.persistence.room.*
+import java.util.*
 
 @Dao
 interface CatPhotoDAO {
@@ -20,6 +18,9 @@ interface CatPhotoDAO {
 
     @Query("SELECT * FROM CatPhoto ORDER BY id")
     fun getLiveAllCatPhotos() : LiveData<List<CatPhoto>>
+
+    @Delete
+    fun deletePhoto(catPhoto: CatPhoto)
 
 
 
