@@ -22,6 +22,11 @@ interface CatPhotoDAO {
     @Delete
     fun deletePhoto(catPhoto: CatPhoto)
 
+    @Transaction
+    fun removePhoto(catPhoto: CatPhoto) {
+        deletePhoto(catPhoto)
+    }
+
 
 
 }

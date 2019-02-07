@@ -73,7 +73,7 @@ class RandomCatViewModel(application: Application) : AndroidViewModel(applicatio
     fun deletePhoto (catPhoto: CatPhoto) {
 
         launch {
-            catPhotoDAO.deletePhoto(catPhoto)
+            catPhotoDAO.removePhoto(catPhoto)
         }
     }
 }
