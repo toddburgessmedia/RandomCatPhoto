@@ -1,10 +1,10 @@
 package com.toddburgessmedia.randomcatkotlin
 
-import android.arch.lifecycle.Observer
+import androidx.lifecycle.Observer
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.widget.DividerItemDecoration
-import android.support.v7.widget.LinearLayoutManager
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +12,7 @@ import com.toddburgessmedia.randomcatkotlin.model.CatPhoto
 import kotlinx.android.synthetic.main.fragment_allphotos.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
-class AllPhotosFragment : Fragment() {
+class AllPhotosFragment : androidx.fragment.app.Fragment() {
 
     private val viewModel: RandomCatViewModel by sharedViewModel<RandomCatViewModel>()
 
@@ -39,15 +39,19 @@ class AllPhotosFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        allphotos.layoutManager = LinearLayoutManager(activity)
+        allphotos.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(activity)
         viewModel.dbChangeNotifier.observe(this, Observer<List<CatPhoto>> { list ->
 
                 list?.let {
                     adapter = AllPhotosAdapter(it.toMutableList(),
                         {catphoto : CatPhoto -> itemClicked(catphoto)} )
                     allphotos.adapter = adapter
-                    allphotos.addItemDecoration(DividerItemDecoration(context,
-                                                DividerItemDecoration.VERTICAL))
+                    allphotos.addItemDecoration(
+                        androidx.recyclerview.widget.DividerItemDecoration(
+                            context,
+                            androidx.recyclerview.widget.DividerItemDecoration.VERTICAL
+                        )
+                    )
 
 
                 }

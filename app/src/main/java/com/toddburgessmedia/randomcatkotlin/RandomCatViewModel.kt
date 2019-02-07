@@ -1,8 +1,8 @@
 package com.toddburgessmedia.randomcatkotlin
 
 import android.app.Application
-import android.arch.lifecycle.AndroidViewModel
-import android.arch.lifecycle.MutableLiveData
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MutableLiveData
 import com.toddburgessmedia.randomcatkotlin.model.*
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext

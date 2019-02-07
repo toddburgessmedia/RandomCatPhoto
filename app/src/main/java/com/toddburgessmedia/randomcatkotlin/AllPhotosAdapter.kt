@@ -1,7 +1,7 @@
 package com.toddburgessmedia.randomcatkotlin
 
 import android.content.Context
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.rv_allphoto.view.*
 
 class AllPhotosAdapter (val items : MutableList<CatPhoto>,
                         val clickListener: (CatPhoto) -> Unit)
-                        : RecyclerView.Adapter<AllPhotosAdapter.PhotoViewHolder>() {
+                        : androidx.recyclerview.widget.RecyclerView.Adapter<AllPhotosAdapter.PhotoViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int): PhotoViewHolder =
         PhotoViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.rv_allphoto, parent, false))
@@ -35,7 +35,7 @@ class AllPhotosAdapter (val items : MutableList<CatPhoto>,
 
 
 
-    class PhotoViewHolder (val v : View) : RecyclerView.ViewHolder(v) {
+    class PhotoViewHolder (val v : View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(v) {
 
         private var view = v
         val photo = v.rv_image

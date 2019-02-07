@@ -1,7 +1,7 @@
 package com.toddburgessmedia.randomcatkotlin
 
-import android.arch.lifecycle.Observer
-import android.support.v4.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.fragment.app.Fragment
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,7 +13,7 @@ import org.koin.android.viewmodel.ext.android.sharedViewModel
 /**
  * A placeholder fragment containing a simple view.
  */
-class MainActivityFragment : Fragment() {
+class MainActivityFragment : androidx.fragment.app.Fragment() {
 
     private val viewModel: RandomCatViewModel by sharedViewModel<RandomCatViewModel>()
 

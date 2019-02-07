@@ -1,16 +1,16 @@
 package com.toddburgessmedia.randomcatkotlin
 
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentPagerAdapter
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentPagerAdapter
 
-class ViewPagerAdapter internal constructor(fm : FragmentManager) : FragmentPagerAdapter(fm) {
+class ViewPagerAdapter internal constructor(fm : androidx.fragment.app.FragmentManager) : androidx.fragment.app.FragmentPagerAdapter(fm) {
 
     val COUNT = 2
 
-    override fun getItem(position: Int): Fragment? {
+    override fun getItem(position: Int): androidx.fragment.app.Fragment? {
 
-        var fragment : Fragment? = null
+        var fragment : androidx.fragment.app.Fragment? = null
 
         when(position) {
             0 -> fragment = MainActivityFragment()
