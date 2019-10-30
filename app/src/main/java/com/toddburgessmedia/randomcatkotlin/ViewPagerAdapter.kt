@@ -17,7 +17,7 @@ class ViewPagerAdapter internal constructor(fm : FragmentManager) : FragmentPage
             1 -> fragment = AllPhotosFragment()
         }
 
-        return fragment
+        return fragment ?: MainActivityFragment()
     }
 
     override fun getCount(): Int = COUNT
